@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            text-align: center;
+        }
+        .logo img {
+            width: 120px;
+            height: 100px;
+        }
+        .input-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button {
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .blue {
+            color: blue;
+        }
+        .red {
+            color: red;
+        }
+        #resumen {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <div class="input-label">Peso (kg):</div>
+        <input id="peso" class="input-field" type="number" step="0.01">
+        <div class="input-label">Altura (m):</div>
+        <input id="altura" class="input-field" type="number" step="0.01">
+        <div class="button-container">
+            <button class="button" onclick="calcularIMC()">Calcular</button>
+        </div>
+        <div id="resultado" class="result"></div>
+        <div id="resumen"></div>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            var peso = parseFloat(document.getElementById("peso").value);
+            var altura = parseFloat(document.getElementById("altura").value);
+
+            if (isNaN(peso) || isNaN(altura) || peso <= 0 || altura <= 0) {
+                document.getElementById("resultado").innerText = "Error: Ingresa valores válidos";
+                document.getElementById("resultado").className = "";
+                document.getElementById("resumen").innerText = "";
+                return;
+            }
+
+            var imc = peso / (altura * altura);
+
+            if (imc < 18.5) {
+                document.getElementById("resultado").innerText = "Tu IMC es: " + imc.toFixed(2);
+                document.getElementById("resultado").className = "blue";
+                document.getElementById("resumen").innerText = "Estás por debajo del peso normal. Puedes estar en riesgo de desnutrición.";
+            } else if (imc >= 18.5 && imc < 25) {
+                document.getElementById("resultado").innerText = "Tu IMC es: " + imc.toFixed(2);
+                document.getElementById("resultado").className = "";
+                document.getElementById("resumen").innerText = "Estas dentro del rango considerado saludable segun el IMC";
+            } else if (imc >= 25 && imc < 30) {
+                document.getElementById("resultado").innerText = "Tu IMC es: " + imc.toFixed(2);
+                document.getElementById("resultado").className = "red";
+                document.getElementById("resumen").innerText = "Tienes sobrepeso. Es recomendable consultar a un médico.";
+            } else {
+                document.getElementById("resultado").innerText = "Tu IMC es: " + imc.toFixed(2);
+                document.getElementById("resultado").className = "red";
+                document.getElementById("resumen").innerText = "Tienes obesidad. Es importante buscar ayuda médica para mejorar tu salud.";
+            }
+        }
+    </script>
+</body>
+</html>
+
